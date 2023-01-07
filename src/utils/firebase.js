@@ -1,8 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import {
   getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -13,11 +11,7 @@ import {
   getFirestore, 
   doc, 
   getDoc, 
-  setDoc, 
-  collection,
-  writeBatch,
-  query,
-  getDocs
+  setDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -35,14 +29,19 @@ initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore();
 
-export const createUserAuth = async (userAuth, additionalInformation) => {
+// Create a new user Authentication
+
+export const createUserAuth = async (userAuth, additionalInformation = {}) => {
   if (!userAuth) return;
 
   const getUserDoc = doc(db, 'users', userAuth.uid);
+
   const userSnapsShot = await getDoc(getUserDoc);
 
   if (!userSnapsShot.exists()) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
+    const displayName = document.getElementById('displayName').value;
+
     const createAdt = new Date();
 
     try {
@@ -60,16 +59,27 @@ export const createUserAuth = async (userAuth, additionalInformation) => {
   return getUserDoc;
 }
 
+// Create a new user with email and password
+
 export const createUserEmail = async (email, password) => {
+
   if (!email || !password) return;
 
-  return await createUserWithEmailAndPassword(auth, email, password);
+  return await createUserWithEmailAndPassword(auth, email, password)
 }
+
+// LogIn in App
 
 export const signWithEmail = async (email, password) => {
-  if (!email || !password) return;
+  if(!email || !password) return;
 
-  return signInWithEmailAndPassword(auth, email, password)
+  return await signInWithEmailAndPassword(auth, email, password)
 }
+
+// Remove User Session
+
+export const signOutUser = async () => await signOut(auth);
+
+// Listener auth changes
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
