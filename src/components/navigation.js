@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import { UserContext } from '../context/user'
 
 import '../styles/navigation.scss'
 
 import logo from '../images/Banamex.webp'
 import { BiBuildings, BiLogIn, BiMessageDetail, BiUser } from 'react-icons/bi'
+import { signOutUser } from '../utils/firebase'
 
 export const Navigation = () => {
 
-  const showMenu = () => {
-    const menu = document.getElementById('menuMobile');
-    menu.classList.add('display-menu--yes')
-    menu.classList.remove('display-menu--no')
-  }
+  const { currentUser } = useContext(UserContext);
+
+  console.log(currentUser);
 
   const toggleMenu = (e) => {
     const menu = document.getElementById('menuMobile');
@@ -44,10 +44,19 @@ export const Navigation = () => {
                 <BiMessageDetail className='display--mobile icon-item--sm margin__right--10' />
                 Contacto
               </Link>
-              <Link to='/auth' className='navigation__container__links__link navigation__container__links__link__auth'>
-                <BiLogIn className='display--mobile icon-item--sm margin__right--10' />
-                Crear cuenta
-              </Link>
+              {
+                currentUser ? (
+                  <Link onClick={signOutUser} className='navigation__container__links__link navigation__container__links__link__auth'>
+                    <BiLogIn className='display--mobile icon-item--sm margin__right--10' />
+                    Cerrar sesión
+                  </Link>
+                ) :
+                  (<Link to='/auth' className='navigation__container__links__link navigation__container__links__link__auth'>
+                    <BiLogIn className='display--mobile icon-item--sm margin__right--10' />
+                    Crear cuenta
+                  </Link>)
+              }
+
             </div>
 
           </div>
