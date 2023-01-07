@@ -1,0 +1,139 @@
+@import './variables.scss';
+
+.text {
+  &--bold {
+    font-weight: bold;
+    font-family: $font-family-normal;
+  }
+
+  &--normal {
+    font-family: $font-family-normal;
+  }
+
+  &--green {
+    color: green;
+  }
+  
+  &--white {
+    color: $white-color;
+  }
+
+  &--black {
+    color: $black-color;
+  }
+
+  &--xl {
+    font-size: 50px;
+  }
+
+  &--lg {
+    font-size: 30px;
+  }
+
+  &--md {
+    font-size: 22px;
+  }
+
+  &--sm {
+    font-size: 16px;
+  }
+
+  &--xs {
+    font-size: 12px;
+  }
+
+  &--center{
+    text-align: center;
+  }
+
+  &--left{
+    text-align: left;
+  }
+
+  &--right{
+    text-align: right;
+  }
+}
+
+.margin {
+  &__top {
+    &--5 {
+      margin-top: 5px;
+    }
+
+    &--10 {
+      margin-top: 10px;
+    }
+
+    &--15 {
+      margin-top: 15px;
+    }
+
+    &--20 {
+      margin-top: 20px;
+    }
+
+    &--40 {
+      margin-top: 40px;
+    }
+  }
+
+  &__bottom {
+    &--5 {
+      margin-bottom: 5px;
+    }
+
+    &--10 {
+      margin-bottom: 10px;
+    }
+
+    &--15 {
+      margin-bottom: 15px;
+    }
+
+    &--20 {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__right{
+    &--5{
+      margin-right: 5px;
+    }
+
+    &--10{
+      margin-right: 10px;
+    }
+  }
+}
+
+.width {
+  &--mx {
+    width: max-content;
+  }
+
+  &--100 {
+    width: 100%;
+  }
+}
+
+.display{
+  &--mobile{
+    display: none;
+  }
+}
+
+.icon-item{
+  &--sm{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .display{
+    &--mobile{
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,353 @@
+@import 'variables.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 80vh;
+
+  &__image {
+    width: 100%;
+    z-index: 1;
+
+    img {
+      width: 90%;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10vw;
+
+
+    &__options {
+      display: flex;
+      align-items: center;
+
+      &__steps {
+        font-family: $font-family-normal;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      &__arrow {
+        margin: 0 5px;
+        color: $blue-color;
+      }
+    }
+  }
+}
+
+.benefits {
+  display: flex;
+  justify-content: center;
+  max-width: 70%;
+  margin: auto;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  &__texts {
+    display: flex;
+    flex-direction: column;
+
+    &__info {
+      line-height: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    &__check {
+      font-size: 14px;
+      line-height: 30px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    &__button {
+      text-decoration: none;
+      color: $white-color;
+      background: $blue-color;
+      width: fit-content;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-family: $font-family-normal;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.card {
+  padding-bottom: 25vh;
+
+  &__background {
+    background: $blue-color;
+    height: 30vh;
+
+    &__content {
+      background: $white-color;
+      width: 60%;
+      margin: auto;
+      position: absolute;
+      transform: translate(-50%, 20%);
+      left: 50%;
+      height: 30%;
+      box-shadow: 0 7px 3px -2px $gray-color-2;
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      &__info {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.getBenefits {
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 70%;
+    margin: auto;
+    grid-row-gap: 80px;
+    margin-top: 60px;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      &--icon {
+        height: 40px;
+        width: 40px;
+      }
+
+      &__info {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.ivaInfo {
+  margin-top: 50px;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__image {
+      img {
+        width: 40vw;
+      }
+
+      &__card {
+        position: absolute;
+        transform: translate(5vw, -18vw);
+        padding: 20px;
+        background: $white-color;
+        border-radius: 5px;
+        box-shadow: -9px 8px 11px -6px rgba(136, 136, 136, 0.589);
+        width: 15%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          &__rate {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-column-gap: 15px;
+
+            div {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+
+    &__range {
+      display: flex;
+      flex-direction: column;
+      width: 35%;
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:nth-child(1) {
+          margin-bottom: 50px;
+        }
+
+        &__text {
+          margin-bottom: 15px;
+        }
+
+        &__card {
+          border: 1px solid $gray-color-1;
+          display: flex;
+          flex-direction: column;
+          width: 50%;
+          margin-top: 20px;
+          padding: 15px;
+          border-radius: 5px;
+
+          &__radius {
+            display: flex;
+            align-items: center;
+
+            input {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__image {
+      width: 100%;
+      position: inherit;
+      z-index: -1;
+    }
+  }
+
+  .benefits {
+    display: flex;
+    justify-content: center;
+    max-width: 70%;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    &__image {
+      display: none;
+    }
+  }
+
+  .card {
+    &__background {
+      &__content {
+        padding: 20px 40px;
+        text-align: center;
+        line-height: 25px;
+
+        span:nth-child(2) {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+
+  .getBenefits {
+    &__grid {
+      max-width: 90%;
+
+      &__item {
+        &--icon {
+          height: 40px;
+          width: 40px;
+        }
+
+        span {
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .ivaInfo {
+    &__container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column-reverse;
+
+      &__image {
+        margin-bottom: 20vh;
+
+        img {
+          width: 70vw;
+        }
+
+        &__card {
+          width: 30%;
+        }
+      }
+
+      &__range {
+        width: 80%;
+
+        &__info {
+
+          &__card {
+            width: 40%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .header{
+    &__image{
+      display: none;
+    }
+  }
+
+  .getBenefits {
+    &__text{
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
