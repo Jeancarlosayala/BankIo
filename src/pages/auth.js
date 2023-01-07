@@ -10,6 +10,8 @@ const defaultFormFieldsRegister = {
   confirmPassword: ''
 };
 
+
+
 export const Auth = () => {
 
   const [formField, setFormField] = useState(defaultFormFieldsRegister);
@@ -21,43 +23,41 @@ export const Auth = () => {
     setFormField({ ...formField, [name]: value });
   }
 
-  const resetFormField = () => {
-    setFormField(formField);
-  }
-
   const handleRegister = async (e) => {
     e.preventDefault()
 
-    try {
-      const { user } = await createUserEmail(email, password);
+    if (confirmPassword === password) {
+      try {
+        const { user } = await createUserEmail(email, password);
 
-      await createUserAuth(user, { displayName });
-
-      resetFormField()
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/weak-password':
-          console.log('Tu contraseña es muy debil');
-        default:
-          console.log(error);
-          break;
+        await createUserAuth(user, { displayName });
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/weak-password':
+            console.log('Tu contraseña es muy debil');
+            break;
+          case 'auth/email-already-in-use':
+            console.log('este usuario ya existe');
+            break;
+          default:
+            console.log(error);
+            break;
+        }
       }
+    } else {
+      alert('Las contraseñas no coinciden')
     }
   }
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
 
     try {
       await signWithEmail(email, password)
-
-      resetFormField()
     } catch (error) {
       console.log(error.code);
     }
   }
-
-
 
   return (
     <div className="auth-container">
@@ -65,11 +65,12 @@ export const Auth = () => {
         <div className="wrapper__register">
           <header className="text--bold text--lg text--center text--black">Registrate</header>
           <form className="wrapper__register__form margin__top--40" onSubmit={handleRegister}>
-          <input
+            <input
               className="wrapper__register__form__input text--normal text--sm"
               onChange={handleChange}
               type='text'
               name='displayName'
+              id='displayName'
               placeholder="Usuario"
               required />
             <input
@@ -85,6 +86,13 @@ export const Auth = () => {
               type='password'
               name='password'
               placeholder="Contraseña"
+              required />
+            <input
+              className="wrapper__register__form__input text--normal text--sm"
+              onChange={handleChange}
+              type='password'
+              name='confirmPassword'
+              placeholder="Confirmar contraseña"
               required />
 
             <button className="wrapper__register__form__button margin__top--15 text--bold text--sm"
