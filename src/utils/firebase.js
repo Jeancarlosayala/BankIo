@@ -1,4 +1,6 @@
 import { initializeApp } from 'firebase/app'
+import { creditCard } from './creditCard';
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -52,6 +54,7 @@ export const createUserAuth = async (userAuth, additionalInformation = {}) => {
         displayName,
         email,
         createAdt,
+        cardNumber: creditCard,
         ...additionalInformation
       })
     } catch (error) {
