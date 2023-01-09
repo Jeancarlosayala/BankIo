@@ -5,13 +5,14 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  
+
 } from 'firebase/auth'
-import { 
-  getFirestore, 
-  doc, 
-  getDoc, 
-  setDoc
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -29,6 +30,7 @@ initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore();
 
+
 // Create a new user Authentication
 
 export const createUserAuth = async (userAuth, additionalInformation = {}) => {
@@ -39,13 +41,14 @@ export const createUserAuth = async (userAuth, additionalInformation = {}) => {
   const userSnapsShot = await getDoc(getUserDoc);
 
   if (!userSnapsShot.exists()) {
-    const { email } = userAuth;
-    const displayName = document.getElementById('displayName').value;
+    const { displayName, email } = userAuth;
 
     const createAdt = new Date();
 
     try {
+      const uid = userAuth.uid
       await setDoc(getUserDoc, {
+        uid,
         displayName,
         email,
         createAdt,
@@ -71,7 +74,7 @@ export const createUserEmail = async (email, password) => {
 // LogIn in App
 
 export const signWithEmail = async (email, password) => {
-  if(!email || !password) return;
+  if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password)
 }
@@ -83,3 +86,10 @@ export const signOutUser = async () => await signOut(auth);
 // Listener auth changes
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+export const updateUser = async (id, displayName) => {
+  console.log(id, displayName);
+  const userDoc = doc(db, 'users', id)
+  const updateName = { displayName: displayName }
+  await updateDoc(userDoc, updateName);
+}
