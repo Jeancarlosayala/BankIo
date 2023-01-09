@@ -10,9 +10,7 @@ import { signOutUser } from '../utils/firebase'
 
 export const Navigation = () => {
 
-  const { currentUser } = useContext(UserContext);
-
-  console.log(currentUser);
+  const { currentUser, userInfo } = useContext(UserContext);
 
   const toggleMenu = (e) => {
     const menu = document.getElementById('menuMobile');
@@ -21,6 +19,8 @@ export const Navigation = () => {
 
     e.target.classList.toggle('navigation__container__button--fixed');
   }
+
+  console.log();
 
   return (
     <>
@@ -57,6 +57,7 @@ export const Navigation = () => {
                   </Link>)
               }
 
+              <span>{userInfo.displayName}</span>
             </div>
 
           </div>
