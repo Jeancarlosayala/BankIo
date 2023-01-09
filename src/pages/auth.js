@@ -10,8 +10,6 @@ const defaultFormFieldsRegister = {
   confirmPassword: ''
 };
 
-
-
 export const Auth = () => {
 
   const [formField, setFormField] = useState(defaultFormFieldsRegister);
@@ -65,14 +63,6 @@ export const Auth = () => {
         <div className="wrapper__register">
           <header className="text--bold text--lg text--center text--black">Registrate</header>
           <form className="wrapper__register__form margin__top--40" onSubmit={handleRegister}>
-            <input
-              className="wrapper__register__form__input text--normal text--sm"
-              onChange={handleChange}
-              type='text'
-              name='displayName'
-              id='displayName'
-              placeholder="Usuario"
-              required />
             <input
               className="wrapper__register__form__input text--normal text--sm"
               onChange={handleChange}
