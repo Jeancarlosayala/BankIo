@@ -20,7 +20,10 @@ export const Navigation = () => {
     e.target.classList.toggle('navigation__container__button--fixed');
   }
 
-  console.log();
+  const signOut = () =>{
+    signOutUser()
+    window.location.replace('/')
+  }
 
   return (
     <>
@@ -46,7 +49,7 @@ export const Navigation = () => {
               </Link>
               {
                 currentUser ? (
-                  <Link onClick={signOutUser} className='navigation__container__links__link navigation__container__links__link__auth'>
+                  <Link onClick={signOut} className='navigation__container__links__link navigation__container__links__link__auth'>
                     <BiLogIn className='display--mobile icon-item--sm margin__right--10' />
                     Cerrar sesión
                   </Link>
