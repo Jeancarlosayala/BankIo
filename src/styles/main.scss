@@ -121,6 +121,18 @@
   &--mobile{
     display: none;
   }
+
+  &--none{
+    display: none;
+  }
+}
+
+.flex{
+  &--center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .icon-item{
