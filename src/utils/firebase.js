@@ -55,6 +55,7 @@ export const createUserAuth = async (userAuth, additionalInformation = {}) => {
         email,
         createAdt,
         cardNumber: creditCard,
+        balance: 0,
         ...additionalInformation
       })
     } catch (error) {
@@ -91,8 +92,29 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
 export const updateUser = async (id, displayName) => {
-  console.log(id, displayName);
-  const userDoc = doc(db, 'users', id)
-  const updateName = { displayName: displayName }
+  const userDoc = doc(db, 'users', id);
+  const updateName = { displayName: displayName };
   await updateDoc(userDoc, updateName);
+}
+
+export const executeTransfer = async (userId, userTransferId, newQuantityBalanceUser, newQuantityBalanceUserTransfer, uuid, quantity) => {  const userDoc = doc(db, 'users', userId);
+  const updateBalanceUser = {balance: newQuantityBalanceUser};
+  const userDocTransfer = doc(db, 'users', userTransferId);
+  const updateBalanceUserTransfer = {balance: newQuantityBalanceUserTransfer};
+  const historyTransfer = doc(db, 'transfers', uuid);
+  const historyDate = new Date();
+
+  try {
+    await updateDoc(userDoc, updateBalanceUser);
+    await updateDoc(userDocTransfer, updateBalanceUserTransfer);
+    await setDoc(historyTransfer, {
+      uuid,
+      sendBy: userId,
+      sendTo: userTransferId,
+      quantityTransfer: quantity,
+      dateTransfer: historyDate
+    })
+  } catch (error) {
+    console.log(error);
+  }
 }
