@@ -32,10 +32,10 @@ export const Auth = () => {
       } catch (error) {
         switch (error.code) {
           case 'auth/weak-password':
-            console.log('Tu contraseña es muy debil');
+            alert('Tu contraseña es muy debil');
             break;
           case 'auth/email-already-in-use':
-            console.log('este usuario ya existe');
+            alert('este usuario ya existe');
             break;
           default:
             console.log(error);
@@ -53,7 +53,17 @@ export const Auth = () => {
     try {
       await signWithEmail(email, password)
     } catch (error) {
-      console.log(error.code);
+      switch (error.code) {
+        case 'auth/wrong-password':
+          alert('Contraseña incorrecta')
+          break;
+        case 'auth/user-not-found':
+          alert('Este usuario no existe')
+          break;
+        default:
+          console.log(error.code);
+          break;
+      }
     }
   }
 
