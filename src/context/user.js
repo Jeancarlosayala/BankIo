@@ -6,20 +6,21 @@ import { createUserAuth, db, onAuthStateChangedListener } from '../utils/firebas
 export const UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => null,
-  userInfo: {}
+  userInfo: [],
+  userInfoTransfer: [],
+  setUserInfoTransfer: () => null
 });
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userInfo, setUserInfo] = useState([]);
-  const value = { currentUser, setCurrentUser, userInfo }
+  const [userInfoTransfer, setUserInfoTransfer] = useState([]);
+  const value = { currentUser, setCurrentUser, userInfo, userInfoTransfer, setUserInfoTransfer }
 
   useEffect(() => {
     const unsuscribe = onAuthStateChangedListener(async (user) => {
       if (user) {
         createUserAuth(user);
-
-        // const categoryMap = await getUserInformation();
 
         onSnapshot(collection(db, 'users'), (querySnapshot) => {
           const docs = []
@@ -27,6 +28,7 @@ export const UserProvider = ({ children }) => {
             return docs.push({ ...doc.data() });
           })
           setUserInfo(docs.filter(item => item.uid === user.uid)[0]);
+          setUserInfoTransfer(docs)
         });
       }
 
