@@ -1,4 +1,5 @@
 import generator from 'creditcard-generator';
+import identifyCard from 'credit-card-identifier'
 
 export const valide_a_credit_card = (numbercc) => {
   //only digits, dashes 
@@ -36,8 +37,39 @@ export const uuid = () => {
     function (c) {
       var r = (dt + Math.random() * 16) % 16 | 0;
       dt = Math.floor(dt / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+      return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
     }
   );
   return uuid;
 };
+
+export const hideNumberCard = (number) => {
+  if (number !== undefined || number !== null) {
+    number = number.toString();
+    var acumulator = '';
+    for (let i = 0; i < number.length; i++) {
+      if (i < 12) {
+        acumulator = acumulator + '*'
+      } else {
+        acumulator = acumulator + number[i]
+      }
+    }
+
+    return acumulator;
+  }
+}
+
+export const agregarCaracter = (cadena, caracter, pasos) => {
+  let cadenaConCaracteres = "";
+  const longitudCadena = cadena.length;
+  for (let i = 0; i < longitudCadena; i += pasos) {
+      if (i + pasos < longitudCadena) {
+          cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
+      } else {
+          cadenaConCaracteres += cadena.substring(i, longitudCadena);
+      }
+  }
+  return cadenaConCaracteres;
+}
+
+export const cartType = (num) => identifyCard(num)
