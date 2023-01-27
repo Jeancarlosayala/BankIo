@@ -1,0 +1,202 @@
+@import './variables.scss';
+
+.panel-content {
+  background: #f2f2f2;
+}
+
+.panel {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
+
+  &--left {
+    width: 70%;
+  }
+
+  &--right {
+    width: fit-content;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      width: 310px;
+      height: 150px;
+      padding: 15px 13px;
+      color: #000;
+      border-radius: 8px;
+      box-shadow: 1px 3px 6px 1px rgba(0, 0, 0, 0.2);
+
+      &::before {
+        content: '';
+        background: url('../images/continents.png') center/cover;
+        position: absolute;
+        width: 339px;
+        height: 175px;
+        opacity: 0.1;
+        transform: translate(-14px, -12px);
+      }
+
+      &__balance {
+        margin-top: 10px;
+        z-index: 1;
+      }
+
+      &__type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1;
+
+        &__logo {
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 25px;
+            margin-right: 5px;
+          }
+        }
+
+        .mastercard {
+          width: 40px;
+        }
+      }
+
+      &__number {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        z-index: 1;
+
+        &__chip {
+          width: 25px;
+        }
+      }
+
+      &__info {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1;
+
+        &__beneficiary {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        &__other {
+          display: flex;
+          align-items: center;
+
+          &__date {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+          }
+
+          &__cvv {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin-left: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  &__transactions {
+    height: 300px;
+    // box-shadow: 2px 5px 15px -3px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 10px 15px;
+
+    &__history {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+
+      &__short-info {
+        display: flex;
+        align-items: center;
+        margin-right: 40px;
+
+        &__icon {
+          font-size: 25px;
+          background: rgba(110, 0, 201, 0.3);
+          color: $purple-color-1;
+          padding: 4px;
+          border-radius: 8px;
+          margin-right: 5px;
+        }
+
+        &__dateconcept {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      &__card {
+        display: flex;
+        margin-right: 40px;
+
+        &__type {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #3a3a3a;
+          padding: 5px 0;
+          width: 35px;
+          border-radius: 4px;
+          margin-right: 5px;
+
+          img {
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  &__services {
+    padding: 15px;
+    border-radius: 5px;
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 15px;
+      gap: 15px;
+
+      &__item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        border: 1px solid #caca;
+        padding: 10px;
+        background: #fff;
+        // box-shadow: 4px 4px 2px -1px rgba(0,0,0,0.12);
+
+        img {
+          width: 40px;
+        }
+      }
+    }
+  }
+}
