@@ -20,7 +20,7 @@ export const Navigation = () => {
     e.target.classList.toggle('navigation__container__button--fixed');
   }
 
-  const signOut = () =>{
+  const signOut = () => {
     signOutUser()
     window.location.replace('/')
   }
@@ -38,6 +38,9 @@ export const Navigation = () => {
               <Link to='/' className='navigation__container__links__link'>
                 <BiUser className='display--mobile icon-item--sm margin__right--10' />
                 Inicio
+              </Link>
+              <Link to='/panel' className='navigation__container__links__link'>
+                Panel
               </Link>
               <Link to='/about' className='navigation__container__links__link'>
                 <BiBuildings className='display--mobile icon-item--sm margin__right--10' />

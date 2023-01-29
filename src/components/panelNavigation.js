@@ -47,7 +47,7 @@ export const PanelNavigation = () => {
           <div className="sidebar__menu-bar__menu">
             <ul className="sidebar__menu-bar__menu__links">
               <li className="sidebar__menu-bar__menu__links__nav-link">
-                <Link className="sidebar__menu-bar__menu__links__nav-link__link">
+                <Link to='/' className="sidebar__menu-bar__menu__links__nav-link__link">
                   <BiUser className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
                   <span className="text--normal text--sm text-opacity">{userInfo.displayName}</span>
                 </Link>
