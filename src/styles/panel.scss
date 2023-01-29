@@ -1,133 +1,50 @@
 @import './variables.scss';
 
 .panel-content {
-  background: #f2f2f2;
+  background: #ebebeb;
 }
 
 .panel {
-  padding: 20px;
+  padding: 20px 50px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 15px;
+  gap: 40px;
 
   &--left {
-    width: 70%;
+    width: 40%;
   }
 
   &--right {
-    width: fit-content;
+    width: 60%;
   }
 
-  &__header {
+  &__actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 50px;
+    gap: 10px;
 
-    &__card {
-      display: flex;
-      flex-direction: column;
-      background: white;
-      width: 310px;
-      height: 150px;
-      padding: 15px 13px;
-      color: #000;
-      border-radius: 8px;
-      box-shadow: 1px 3px 6px 1px rgba(0, 0, 0, 0.2);
-
-      &::before {
-        content: '';
-        background: url('../images/continents.png') center/cover;
-        position: absolute;
-        width: 339px;
-        height: 175px;
-        opacity: 0.1;
-        transform: translate(-14px, -12px);
-      }
-
-      &__balance {
-        margin-top: 10px;
-        z-index: 1;
-      }
-
-      &__type {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 1;
-
-        &__logo {
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 25px;
-            margin-right: 5px;
-          }
-        }
-
-        .mastercard {
-          width: 40px;
-        }
-      }
-
-      &__number {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 20px;
-        z-index: 1;
-
-        &__chip {
-          width: 25px;
-        }
-      }
-
-      &__info {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 1;
-
-        &__beneficiary {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        &__other {
-          display: flex;
-          align-items: center;
-
-          &__date {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-          }
-
-          &__cvv {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            margin-left: 15px;
-          }
-        }
-      }
+    &--button-link {
+      background: $blue-color-3;
+      color: $blue-color-2;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 3px;
+      width: 100%;
+      text-align: center;
     }
   }
 
-  &__transactions {
-    height: 300px;
-    // box-shadow: 2px 5px 15px -3px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    padding: 10px 15px;
-
-    &__history {
-      margin-top: 15px;
-      display: flex;
-      align-items: center;
+  .transactions {
+    display: flex;
+    align-items: center;
+    padding: 15px 35px;
+    border-bottom: 1px solid #dbdbdb;
+      
+      &:nth-last-child(1) {
+        border: none;
+      }
 
       &__short-info {
         display: flex;
@@ -153,6 +70,7 @@
       &__card {
         display: flex;
         margin-right: 40px;
+        flex: 1;
 
         &__type {
           display: flex;
@@ -169,34 +87,22 @@
           }
         }
       }
-    }
   }
+}
 
-  &__services {
-    padding: 15px;
-    border-radius: 5px;
+.image-services{
+  width: 100%;
+}
 
-    &__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin-top: 15px;
-      gap: 15px;
+.text-services{
+  position: absolute;
+  text-align: center;
+}
 
-      &__item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 3px;
-        border: 1px solid #caca;
-        padding: 10px;
-        background: #fff;
-        // box-shadow: 4px 4px 2px -1px rgba(0,0,0,0.12);
+.service-image{
+  width: 30px;
+}
 
-        img {
-          width: 40px;
-        }
-      }
-    }
-  }
+.basis{
+  flex-basis: 50%;
 }
