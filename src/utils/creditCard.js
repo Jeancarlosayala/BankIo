@@ -49,7 +49,7 @@ export const hideNumberCard = (number) => {
     var acumulator = '';
     for (let i = 0; i < number.length; i++) {
       if (i < 12) {
-        acumulator = acumulator + '*'
+        acumulator = acumulator + ''
       } else {
         acumulator = acumulator + number[i]
       }
