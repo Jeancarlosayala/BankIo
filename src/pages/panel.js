@@ -1,153 +1,163 @@
 import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/user';
-import { Link } from 'react-router-dom';
 
+import CurrencyFormat from 'react-currency-format';
 import { TransferContext } from '../context/transfers';
-import { agregarCaracter, cartType, currencyFormat } from '../utils/creditCard'
+import { UserContext } from '../context/user';
 import { apiService } from '../utils/apiServices';
 
 import { RiRestaurantFill } from 'react-icons/ri'
+import { hideNumberCard } from '../utils/creditCard';
+import { CardNormal, CardShadow, HeaderOutline } from '../styles/Cards';
+import { FlexCenter } from '../styles/Flex';
+import { CustomInput, LinkButton, LinkText, SearchButton } from '../styles/Elements';
 
-import chip from '../images/chip.png'
-import logo from '../images/banamex.png'
+import { AiOutlineSearch } from 'react-icons/ai'
 import mastercard from '../images/mastercard.png'
-
 import '../styles/panel.scss'
+
+
+
 
 export const Panel = () => {
   const { userInfo } = useContext(UserContext)
   const { historial } = useContext(TransferContext)
+  const [newApiServices, setNewApiServices] = useState(apiService)
 
-  const { cardNumber, displayName, uid } = userInfo;
+  const { uid, cardNumber } = userInfo;
 
-  const [balance, setBalance] = useState(null);
+  const [balance, setBalance] = useState(0);
   const [loader, setLoader] = useState(false)
-  const [cardType, setCardType] = useState(null)
-  const [formatCard, setFormatCard] = useState(null)
-
 
   useEffect(() => {
-    setBalance(currencyFormat(+userInfo.balance))
-    if (balance === '$NaN' || balance === null) return setLoader(true);
+    setBalance(userInfo.balance)
+    if (balance === undefined || balance === null) return setLoader(true);
     setLoader(false)
-    setCardType(cartType(cardNumber))
-    setFormatCard(agregarCaracter(cardNumber, '-', 4));
-  }, [balance, userInfo, cardNumber])
+  }, [balance, userInfo])
+
+  if (loader) return <h1 className='text--bold'>Cargando...</h1>;
+  const newApi = newApiServices.filter((_, idx) => idx < 4);
 
   return (
     <>
-      {
-        loader === false ? (
-          <div className='panel'>
-            <div className='panel--left'>
-              <div className='panel__header'>
-                <div className='panel__header__card'>
-                  <div className='panel__header__card__type'>
-                    <div className='panel__header__card__type__logo'>
-                      <img src={logo} alt='logo' />
-                      <span className='text--bold'>BankIo</span>
-                    </div>
-
-                    {
-                      cardType === 'MasterCard' ?
-                        <img className='mastercard' src={mastercard} alt={cardType} /> :
-                        <span className='text--normal'>{cardType}</span>
-                    }
-                  </div>
-
-                  <div className='panel__header__card__balance'>
-                    <span className='text--bold'>{balance}</span>
-                  </div>
-
-                  <div className='panel__header__card__number'>
-                    <span className='text--bold text--sm'>{formatCard}</span>
-                    <img className='panel__header__card__number__chip' src={chip} alt='chip' />
-                  </div>
-
-                  <div className='panel__header__card__info'>
-                    <div className='panel__header__card__info__beneficiary'>
-                      <span className='text--bold text--xs'>Propietario</span>
-                      <span className='text--normal text--xs'>{displayName}</span>
-                    </div>
-                    <div className='panel__header__card__info__other'>
-                      <div className='panel__header__card__info__other__date'>
-                        <span className='text--bold text--xs'>Fecha</span>
-                        <span className='text--normal text--xs'>04/29</span>
-                      </div>
-                      <div className='panel__header__card__info__other__cvv'>
-                        <span className='text--bold text--xs'>CVV</span>
-                        <span className='text--normal text--xs'>780</span>
-                      </div>
-                    </div>
-                  </div>
+      <div className='panel'>
+        <div className='panel--left'>
+          <FlexCenter content='center' items='center' margin_bottom='20px'>
+            <CardShadow padding='20px'>
+              <div className='panel__header__card__type'>
+                <div className='panel__header__card__type__logo'>
+                  <span className='text--normal text--sm'>Dinero disponible en BankIo</span>
                 </div>
               </div>
-
-              <div className='panel__services'>
-                <Services />
+              <div className='panel__header__card__balance'>
+                <CurrencyFormat
+                  value={balance}
+                  displayType='text'
+                  thousandSeparator={true}
+                  prefix={'$'}
+                  renderText={value => <span className='text--bold'>{value}</span>}
+                />
               </div>
-            </div>
+            </CardShadow>
+          </FlexCenter>
 
-            <div className='panel--right'>
-              <div className='panel__transactions'>
-                <span className='text--bold text--sm'>Ultimas transacciones</span>
+          <FlexCenter content='center' items='center' margin_bottom='20px'>
+            <CardShadow padding='20px'>
+              <FlexCenter content='center' items='center' gap='10px'>
+                <LinkButton rounded='3px' className='text--bold' to='/'>Transferir dinero</LinkButton>
+                <LinkButton rounded='3px' to='#' className='text--bold'>Pedir un prestamo</LinkButton>
+              </FlexCenter>
+            </CardShadow>
+          </FlexCenter>
+
+          <FlexCenter content='center' items='center'>
+            <CardNormal padding='20px'>
+              <FlexCenter items='center' content='center'>
+                <FlexCenter
+                  direction='row'
+                  border='1px solid #cacaca !important'
+                  rounded='5px'
+                  margin_bottom='15px'
+                  items='center'
+                  content='center'>
+                  <CustomInput placeholder='Paga tus servicios sin salir de casa'
+                    onChange={(e) => {
+                      const searchService = apiService.filter((service, idx) => {
+                        return service.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())
+                      })
+                      setNewApiServices(searchService)
+                    }} />
+                  <SearchButton type='submit' font_size='20px'>
+                    <AiOutlineSearch />
+                  </SearchButton>
+                </FlexCenter>
+
                 {
-                  historial.filter(item => item.sendTo === uid || item.sendBy === uid).map(({ quantityTransfer, uid, dateTransfer, sendTo, sendBy, subject }, index) => {
-                    const date = new Date(dateTransfer.seconds * 1000).toLocaleDateString('en-us');
+                  newApi.map(({ id, name, img }) => {
                     return (
-                      <div key={index} className='panel__transactions__history'>
-                        <div className='panel__transactions__history__short-info'>
-                          <RiRestaurantFill className='panel__transactions__history__short-info__icon' />
-                          <div className='panel__transactions__history__short-info__dateconcept'>
-                            <span className='text--xs text--bold'>{subject}</span>
-                            <span className='text--sxs text--normal text--gray'>{date}</span>
-                          </div>
-                        </div>
-
-                        <div className='panel__transactions__history__card'>
-                          <div className='panel__transactions__history__card__type'>
-                            <img className='mastercard' src={mastercard} alt='card' />
-                          </div>
-                          <div className='panel__transactions__history__card__number'>
-                            <span className='text--xs text--normal text--gray'>8686</span>
-                          </div>
-                        </div>
-
-                        {
-                          sendTo === userInfo.uid ?
-                            <span className='text--bold text--xs text--light-green'>{quantityTransfer}</span>
-                            : <span className='text--bold text--xs'>{quantityTransfer}</span>
-                        }
-                      </div>
+                      <FlexCenter
+                        key={id}
+                        border_bottom='1px solid #cacaca'
+                        padding='10px 0px'>
+                        <LinkText to={`/service/${name.toLocaleLowerCase()}`}>
+                          <FlexCenter direction='row' items='center'>
+                            <img src={img} alt={name} className='service-image' />
+                            <span className='text--normal margin__left--10'>{name}</span>
+                          </FlexCenter>
+                        </LinkText>
+                      </FlexCenter>
                     )
                   })
                 }
-              </div>
-            </div>
-          </div>
-        ) : <h1 className='text--bold'>Cargando...</h1>
-      }
-    </>
-  )
-}
 
-const Services = () => {
-  return (
-    <>
-      <span className='text--bold text--md'>Servicios</span>
+                <FlexCenter padding='10px 0 0 0'>
+                  <LinkText className='text--normal' color='#4299fd'>
+                    Ver todos ({apiService.length})
+                  </LinkText>
+                </FlexCenter>
+              </FlexCenter>
+            </CardNormal>
+          </FlexCenter>
+        </div>
 
-      <div className='panel__services__grid'>
-        {
-          apiService.map(({ name, id, img }) => {
-            return (
-              <div key={id} className='panel__services__grid__item'>
-                <img className='margin__bottom--5' src={img} alt='service' />
-                <span className='text--bold'>{name}</span>
-                <Link to='#' className='text--normal button--outline-gray margin__top--10'>Comprar ahora</Link>
-              </div>
-            )
-          })
-        }
+        <div className='panel--right'>
+          <CardShadow>
+            <HeaderOutline padding='15px 20px' border_bottom='1px solid #dbdbdb'>
+              <span className='text--bold text--sm'>Ultima actividad</span>
+            </HeaderOutline>
+
+            {
+              historial.filter(item => item.sendTo === uid || item.sendBy === uid).map(({ quantityTransfer, dateTransfer, sendTo, subject }, index) => {
+                const date = new Date(dateTransfer.seconds * 1000).toLocaleDateString('en-us');
+                return (
+                  <div key={index} className='transactions'>
+                    <div className='transactions__short-info'>
+                      <RiRestaurantFill className='transactions__short-info__icon' />
+                      <div className='transactions__short-info__dateconcept'>
+                        <span className='text--xs text--bold'>{subject}</span>
+                        <span className='text--sxs text--normal text--gray'>{date}</span>
+                      </div>
+                    </div>
+
+                    <div className='transactions__card'>
+                      <div className='transactions__card__type'>
+                        <img className='mastercard' src={mastercard} alt='card' />
+                      </div>
+                      <div className='transactions__card__number'>
+                        <span className='text--xs text--normal text--gray'>{hideNumberCard(cardNumber)}</span>
+                      </div>
+                    </div>
+
+                    {
+                      sendTo === userInfo.uid ?
+                        <span className='text--bold text--xs text--light-green'>{quantityTransfer}</span>
+                        : <span className='text--bold text--xs'>{quantityTransfer}</span>
+                    }
+                  </div>
+                )
+              })
+            }
+          </CardShadow>
+        </div>
       </div>
     </>
   )
