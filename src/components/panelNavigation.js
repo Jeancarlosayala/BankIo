@@ -26,7 +26,8 @@ export const PanelNavigation = () => {
   const signOut = () => {
     signOutUser();
 
-    window.location.replace('/')
+    window.location.replace('/auth')
+    localStorage.removeItem('islogged')
   }
 
   return (
