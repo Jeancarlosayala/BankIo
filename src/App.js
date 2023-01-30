@@ -1,40 +1,34 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Auth } from './pages/auth';
 import './styles/main.scss'
 import { Panel } from './pages/panel';
 import { PanelNavigation } from './components/panelNavigation';
+import { PanelTransfer } from './routes/panelTransfer';
 
-function App() {
+const islogged = localStorage.getItem('islogged')
+
+const PrivateRoute = () => {
+  if(!islogged) return <Navigate to='/auth' />
 
   return (
     <Routes>
-      {/* <Route path='/' element={<Navigation />} >
-        <Route index element={<Home />} />
-        {
-          currentUser ?
-            (
-              <>
-                <Route path='*' element={<Navigate to='/panel' replace />} />
-                <Route path='panel/:id' element={<EditInfo />} />
-              </>
-            ) :
-            (
-              <>
-                <Route path='auth' element={<Auth />} />
-                <Route path='panel' element={<Navigate to='/auth' replace />} />
-                <Route path='panel/:id' element={<Navigate to='/auth' replace />} />
-              </>
-            )
-        }
-      </Route> */}
       <Route path='/' element={<PanelNavigation />}>
         <Route index element={<Panel />} />
-        <Route path='auth' element={<Auth />} />
         <Route path='service/:id' element={<h1>Services</h1>} />
+        <Route path='transaction' element={<PanelTransfer />} />
       </Route>
-
     </Routes>
-  );
+  )
 }
 
+function App() {
+  return (
+    <>
+      <PrivateRoute />
+      <Routes>
+        <Route path='auth' element={<Auth />} />
+      </Routes>
+    </>
+  );
+}
 export default App;
