@@ -17,3 +17,12 @@ export const FlexCenter = styled.div`
     border: none;
   }
 `
+
+export const Grid = styled.div `
+  display: grid;
+  gap: ${props => props.gap ? props.gap : '0'};
+  column-gap: ${props => props.gap_col ? props.gap_col : props.gap};
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, ${props => props.columns ? props.columns : '25rem'}), 1fr));
+  width: 100%;
+  height: 100%;
+`

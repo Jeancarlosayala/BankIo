@@ -17,7 +17,7 @@ export const LinkButton = styled(Link)`
   color: #4299fd;
   text-decoration: none;
   padding: 8px;
-  width: 100%;
+  width: auto;
   text-align: center;
   border-radius: ${props => props.rounded ? props.rounded : '0px'};
   transition: all ease .2s;
