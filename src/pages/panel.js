@@ -8,20 +8,18 @@ import { apiService } from '../utils/apiServices';
 import { RiRestaurantFill } from 'react-icons/ri'
 import { hideNumberCard } from '../utils/creditCard';
 import { CardNormal, CardShadow, HeaderOutline } from '../styles/Cards';
-import { FlexCenter } from '../styles/Flex';
+import { FlexCenter, Grid } from '../styles/Flex';
 import { CustomInput, LinkButton, LinkText, SearchButton } from '../styles/Elements';
 
 import { AiOutlineSearch } from 'react-icons/ai'
 import mastercard from '../images/mastercard.png'
 import '../styles/panel.scss'
 
-
-
-
 export const Panel = () => {
   const { userInfo } = useContext(UserContext)
   const { historial } = useContext(TransferContext)
   const [newApiServices, setNewApiServices] = useState(apiService)
+
 
   const { uid, cardNumber } = userInfo;
 
@@ -33,6 +31,7 @@ export const Panel = () => {
     if (balance === undefined || balance === null) return setLoader(true);
     setLoader(false)
   }, [balance, userInfo])
+  
 
   if (loader) return <h1 className='text--bold'>Cargando...</h1>;
   const newApi = newApiServices.filter((_, idx) => idx < 4);
@@ -62,10 +61,10 @@ export const Panel = () => {
 
           <FlexCenter content='center' items='center' margin_bottom='20px'>
             <CardShadow padding='20px'>
-              <FlexCenter content='center' items='center' gap='10px'>
-                <LinkButton rounded='3px' className='text--bold' to='/'>Transferir dinero</LinkButton>
+              <Grid gap='15px'>
+                <LinkButton rounded='3px' className='text--bold' to='/transaction'>Transferir dinero</LinkButton>
                 <LinkButton rounded='3px' to='#' className='text--bold'>Pedir un prestamo</LinkButton>
-              </FlexCenter>
+              </Grid>
             </CardShadow>
           </FlexCenter>
 

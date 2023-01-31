@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUserAuth, createUserEmail, signWithEmail } from "../utils/firebase";
 
 import '../styles/auth.scss'
+import { Navigate } from "react-router-dom";
 
 const defaultFormFieldsRegister = {
   displayName: '',
@@ -11,9 +12,9 @@ const defaultFormFieldsRegister = {
 };
 
 export const Auth = () => {
-
   const [formField, setFormField] = useState(defaultFormFieldsRegister);
   const { email, password, displayName, confirmPassword } = formField;
+  const islogged = localStorage.getItem('islogged');
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -29,6 +30,8 @@ export const Auth = () => {
         const { user } = await createUserEmail(email, password);
 
         await createUserAuth(user, { displayName });
+        window.location.replace('/')
+        localStorage.setItem('islogged', true)
       } catch (error) {
         switch (error.code) {
           case 'auth/weak-password':
@@ -52,6 +55,8 @@ export const Auth = () => {
 
     try {
       await signWithEmail(email, password)
+      window.location.replace('/')
+      localStorage.setItem('islogged', true)
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
@@ -67,62 +72,84 @@ export const Auth = () => {
     }
   }
 
+  const changeAuth = () => {
+    const container = document.querySelector('.auth-container');
+    container.classList.toggle('login')
+  }
+
+  if (islogged) return <Navigate to='/' />
+
   return (
-    <div className="auth-container">
-      <section className="wrapper">
-        <div className="wrapper__register">
-          <header className="text--bold text--lg text--center text--black">Registrate</header>
-          <form className="wrapper__register__form margin__top--40" onSubmit={handleRegister}>
+    <div className="body-auth">
+      <div className="auth-container">
+        <section className="auth-container__form">
+          <form className="register-form" onSubmit={handleLogin}>
+            <span className="text--bold text--lg text--center text--black">Inicia Sesión</span>
             <input
-              className="wrapper__register__form__input text--normal text--sm"
+              className="auth-container__form__input text--normal text--sm"
               onChange={handleChange}
               type='email'
               name='email'
               placeholder="Correo"
               required />
             <input
-              className="wrapper__register__form__input text--normal text--sm"
+              className="auth-container__form__input text--normal text--sm"
+              onChange={handleChange}
+              type='password'
+              name='password'
+              placeholder="Contraseña"
+              required />
+
+            <button className="form-button text--white margin__top--15 text--bold text--sm"
+              type="submit">Iniciar sesion</button>
+          </form>
+
+          <form className="login-form" onSubmit={handleRegister}>
+            <span className="text--bold text--lg text--center text--black">Registrate</span>
+            <input
+              className="auth-container__form__input text--sm"
+              onChange={handleChange}
+              type='email'
+              name='email'
+              placeholder="Correo"
+              required />
+            <input
+              className="auth-container__form__input text--sm"
               onChange={handleChange}
               type='password'
               name='password'
               placeholder="Contraseña"
               required />
             <input
-              className="wrapper__register__form__input text--normal text--sm"
+              className="auth-container__form__input text--sm"
               onChange={handleChange}
               type='password'
               name='confirmPassword'
               placeholder="Confirmar contraseña"
               required />
 
-            <button className="wrapper__register__form__button margin__top--15 text--bold text--sm"
+            <button className="form-button text--white margin__top--15 text--bold text--sm"
               type="submit">Registrame</button>
           </form>
-        </div>
+        </section>
 
-        <div className="wrapper__login">
-          <header className="text--bold text--lg text--center text--black">Inicia Sesión</header>
-          <form className="wrapper__login__form margin__top--40" onSubmit={handleLogin}>
-            <input
-              className="wrapper__login__form__input text--normal text--sm"
-              onChange={handleChange}
-              type='email'
-              name='email'
-              placeholder="Correo"
-              required />
-            <input
-              className="wrapper__login__form__input text--normal text--sm"
-              onChange={handleChange}
-              type='password'
-              name='password'
-              placeholder="Contraseña"
-              required />
-
-            <button className="wrapper__login__form__button margin__top--15 text--bold text--sm"
-              type="submit">Registrame</button>
-          </form>
-        </div>
-      </section>
+        <section className="auth-container__panel-container">
+          <div className="auth-container__panel-container__panel auth-container__panel-container--left">
+            <span className="text--bold text--lg text--white">Ya tienes una cuenta BankIo</span>
+            <span className="text--white text--normal margin__top--10">Inicia sesion para poder obtener todos
+              nuestros beneficios</span>
+            <button onClick={changeAuth} className="change-auth-button margin__top--15 text--bold text--sm"
+              type="button">Iniciar sesion</button>
+          </div>
+          <div className="auth-container__panel-container__panel auth-container__panel-container--right">
+            <span className="text--bold text--lg text--white">Registrate en BankIo</span>
+            <span className="text--white text--normal margin__top--10">Al registrate por primera vez obten hasta $1000 pesos para tus compras y/o
+              servicios</span>
+            <button onClick={changeAuth} className="change-auth-button margin__top--15 text--bold text--sm"
+              type="button">Registrame</button>
+          </div>
+        </section>
+      </div>
     </div>
   )
 }
