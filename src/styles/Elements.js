@@ -40,7 +40,6 @@ export const LinkButton = styled(Link)`
   text-align: center;
   border-radius: ${props => props.rounded ? props.rounded : '0px'};
   transition: all ease .2s;
-  font-family: 'Avenir';
 
   &:hover{
     background: #4299fd;
@@ -74,7 +73,6 @@ export const CustomButton = styled.button`
   border-radius: ${props => props.rounded ? props.rounded : '0px'};
   border: ${props => props.border ? props.border : 'none'};
   transition: all ease .2s;
-  font-family: 'Avenir';
   margin: ${props => props.margin ? props.margin : '0px'};
   cursor: pointer;
   z-index: 1;

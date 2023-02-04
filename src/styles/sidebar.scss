@@ -115,6 +115,10 @@
   width: calc(100% - 88px);
 }
 
+.display_mobile{
+  display: none;
+}
+
 @media (max-width: 700px) {
   .sidebar {
     position: relative;
@@ -162,5 +166,9 @@
   .sidebar--close~.panel-content {
     left: 0;
     width: 100%;
+  }
+
+  .display_mobile{
+    display: block;
   }
 }

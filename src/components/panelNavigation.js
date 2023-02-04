@@ -65,7 +65,7 @@ export const PanelNavigation = () => {
                   <span className="text--normal text--sm text-opacity link_mobile">Notificaciones</span>
                 </Link>
               </li>
-              <li className="sidebar__menu-bar__menu__links__nav-link">
+              <li className="sidebar__menu-bar__menu__links__nav-link display_mobile">
               <Link onClick={signOut} className="sidebar__menu-bar__menu__links__nav-link__link">
                 <CgLogOut className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
               </Link>
