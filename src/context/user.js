@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
           querySnapshot.docs.map((doc) => {
             return docs.push({ ...doc.data() });
           })
-          setUserInfo(docs.filter(item => item.uid === user.uid)[0]);
+          setUserInfo(docs.find(item => item.uid === user.uid));
           setUserInfoTransfer(docs)
         });
       }
