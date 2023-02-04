@@ -1,0 +1,9 @@
+.imageTransfer{
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+
+  @media (max-width: 543px) {
+    width: 80%;
+  }
+}

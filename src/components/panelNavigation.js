@@ -50,20 +50,25 @@ export const PanelNavigation = () => {
               <li className="sidebar__menu-bar__menu__links__nav-link">
                 <Link to='/' className="sidebar__menu-bar__menu__links__nav-link__link">
                   <BiUser className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
-                  <span className="text--normal text--sm text-opacity">{userInfo.displayName}</span>
+                  <span className="text--normal text--sm text-opacity link_mobile">{userInfo.displayName}</span>
                 </Link>
               </li>
               <li className="sidebar__menu-bar__menu__links__nav-link">
                 <Link className="sidebar__menu-bar__menu__links__nav-link__link">
                   <BiFile className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
-                  <span className="text--normal text--sm text-opacity">Recibos</span>
+                  <span className="text--normal text--sm text-opacity link_mobile">Recibos</span>
                 </Link>
               </li>
               <li className="sidebar__menu-bar__menu__links__nav-link">
                 <Link className="sidebar__menu-bar__menu__links__nav-link__link">
                   <IoMdNotificationsOutline className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
-                  <span className="text--normal text--sm text-opacity">Notificaciones</span>
+                  <span className="text--normal text--sm text-opacity link_mobile">Notificaciones</span>
                 </Link>
+              </li>
+              <li className="sidebar__menu-bar__menu__links__nav-link">
+              <Link onClick={signOut} className="sidebar__menu-bar__menu__links__nav-link__link">
+                <CgLogOut className="sidebar__menu-bar__menu__links__nav-link__link__icon text--md" />
+              </Link>
               </li>
             </ul>
           </div>
