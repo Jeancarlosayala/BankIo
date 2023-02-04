@@ -35,6 +35,12 @@ export const Panel = () => {
 
   if (loader) return <h1 className='text--bold'>Cargando...</h1>;
   const newApi = newApiServices.filter((_, idx) => idx < 4);
+  historial.sort((a,b) => {
+    if(a.dateTransfer.seconds > b.dateTransfer.seconds){
+      return -1
+    }
+    return -1;
+  });
 
   return (
     <>
