@@ -106,3 +106,25 @@
 .basis{
   flex-basis: 50%;
 }
+
+@media (max-width: 991px) {
+  .panel{
+    flex-direction: column;
+
+    &--left {
+      width: 100%;
+    }
+  
+    &--right {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 543px) {
+  .panel{
+    &--right {
+      display: none;
+    }
+  }
+}
