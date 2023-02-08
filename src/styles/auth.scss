@@ -182,3 +182,28 @@ form.login-form {
 .auth-container.auth-container.login form.login-form {
   opacity: 1;
 }
+
+@media (max-width: 991px) {
+  .auth-container.login {
+    &::before {
+      content: none;
+    }
+  }
+  .auth-container {
+    width: 90%;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  .account-link{
+    background: none;
+    color: $blue-color;
+    border: none;
+  }
+
+  form.login-form{
+    opacity: 1;
+  }
+}

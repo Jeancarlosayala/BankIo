@@ -77,6 +77,14 @@ export const Auth = () => {
     container.classList.toggle('login')
   }
 
+  const changeForm = () =>{
+    const registerForm = document.querySelector('.register-form');
+    const loginForm = document.querySelector('.login-form')
+
+    registerForm.classList.toggle('display--desk')
+    loginForm.classList.toggle('display--desk')
+  }
+
   if (islogged) return <Navigate to='/' />
 
   return (
@@ -99,12 +107,14 @@ export const Auth = () => {
               name='password'
               placeholder="Contraseña"
               required />
+            <button onClick={changeForm} className="account-link text--bold text--xs display--mobile"
+              type="submit">No tengo una cuenta</button>
 
             <button className="form-button text--white margin__top--15 text--bold text--sm"
               type="submit">Iniciar sesion</button>
           </form>
 
-          <form className="login-form" onSubmit={handleRegister}>
+          <form className="login-form display--desk" onSubmit={handleRegister}>
             <span className="text--bold text--lg text--center text--black">Registrate</span>
             <input
               className="auth-container__form__input text--sm"
@@ -128,6 +138,9 @@ export const Auth = () => {
               placeholder="Confirmar contraseña"
               required />
 
+            <button onClick={changeForm} className="account-link text--bold text--xs display--mobile"
+              type="submit">Ya tengo una cuenta</button>
+
             <button className="form-button text--white margin__top--15 text--bold text--sm"
               type="submit">Registrame</button>
           </form>
@@ -141,11 +154,11 @@ export const Auth = () => {
             <button onClick={changeAuth} className="change-auth-button margin__top--15 text--bold text--sm"
               type="button">Iniciar sesion</button>
           </div>
-          <div className="auth-container__panel-container__panel auth-container__panel-container--right">
+          <div className="auth-container__panel-container__panel auth-container__panel-container--right display--desk">
             <span className="text--bold text--lg text--white">Registrate en BankIo</span>
             <span className="text--white text--normal margin__top--10">Al registrate por primera vez obten hasta $1000 pesos para tus compras y/o
               servicios</span>
-            <button onClick={changeAuth} className="change-auth-button margin__top--15 text--bold text--sm"
+            <button onClick={changeAuth} className="change-auth-button margin__top--15 text--bold text--sm display--desk"
               type="button">Registrame</button>
           </div>
         </section>

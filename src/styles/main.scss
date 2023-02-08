@@ -14,7 +14,7 @@
     color: green;
   }
 
-  &--light-green{
+  &--light-green {
     color: rgb(34, 201, 19);
   }
 
@@ -159,11 +159,11 @@
     display: none;
   }
 
-  &--flex{
+  &--flex {
     display: flex;
   }
 
-  &--block{
+  &--block {
     display: block;
   }
 }
@@ -212,10 +212,14 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
   .display {
     &--mobile {
       display: block;
+    }
+
+    &--desk {
+      display: none !important;
     }
   }
 }
